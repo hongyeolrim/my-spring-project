@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+	<div class="container">
+	<form id="insertForm" th:action="@{empInsert}" method="post">
+		<div>
+			<label for="ename">사원명</label> 
+			<input type="text" id="ename" name="lastName">
+		</div>
+		<div>
+			<label for="email">이메일</label> 
+			<input type="text" id="email" name="email">
+		</div>
+		<div>
+			<label for="hDate">입사일</label> 
+			<input type="date" id="hDate" name="hireDate">
+		</div>
+		<div>
+			<label for="job">업무</label> 
+			<input type="text" id="job" name="jobId">
+		</div>
+		<div>
+			<label for="sal">급여</label> 
+			<input type="number" step="0.01" min="0" id="sal" name="salary">
+		</div>
+		<div>
+		<button type="submit">등록</button>
+		</div>
+			<script>
+			$(insertForm).on('submit', validationCheck);
+			function validationCheck(event) {
+				// submit 이벤트 일시정지
+				event.preventDefault();
+				
+				// 이름
+				let nameTag = $(insertForm).find('[name="lastName"]');
+				
+				if(nameTag.val() == '') {
+					nameTag.focus();
+					alert('이름은 필수값입니다.');
+					return;
+				}
+				
+				// 이메일
+				let emailTag = $(insertForm).find('[name="email"]');
+				
+				if(emailTag.val() == '') {
+					emailTag.focus();
+					alert('이메일은 필수값입니다.');
+					return;
+				}
+				
+				// 업무
+				let jobTag = $('form[name="insertForm"] *').filter('[name="jobId"]');
+				if(jobTag.val() == '') {
+					jobTag.focus();
+					alert('업무는 필수값입니다.');
+					return;
+				}
+					
+				insertForm.submit();
+			}
+			</script>
+		</form>
+	</div>
+
+</body>
+</html>
